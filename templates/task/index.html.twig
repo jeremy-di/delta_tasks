@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Task index{% endblock %}
+
+{% block body %}
+<h1 class="text-center m-5 text-3xl">Tâches effectuées</h1>
+
+<div class="w-2/4 m-auto">
+    {% for task in tasks %}
+    {% if task.status == "Effectué" %}
+        <div class="m-5 p-4 mb-4 text-center text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+        <span class="font-medium">{{ task.name }}</span> | {{ task.designation }} | {{ task.date ? task.date|date('d/m/Y') : '' }} | {{ include('task/_delete_form.html.twig') }}
+        </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<div class="flex justify-center m-5">
+    <a class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800" href="{{ path('app_home') }}">Voir les tâches à faire</a>
+</div>
+{% endblock %}
