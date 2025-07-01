@@ -47,6 +47,19 @@ final class TaskController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/status', name: 'app_task_status', methods: ['GET', 'POST'])]
+    public function status(Request $request, Task $task, EntityManagerInterface $entityManager): Response
+    {
+        // if (!$this->isCsrfTokenValid('toggle-task', $request->request->get('_token'))) {
+        //     throw $this->createAccessDeniedException('Token CSRF invalide');
+        // }
+
+        $task->setStatus("Effectué");
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+    }
+
     #[Route('/{id}', name: 'app_task_show', methods: ['GET'])]
     public function show(Task $task): Response
     {
